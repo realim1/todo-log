@@ -12,8 +12,8 @@ const TodoLogItem = ({ logItem }) => {
 				return (
 					<>
 						<Card.Title>Todos</Card.Title>
-						{item.todos.map((todo) => {
-							return <Card.Text>- {todo}</Card.Text>;
+						{item.todos.map((todo, index) => {
+							return <Card.Text key={index}>- {todo}</Card.Text>;
 						})}
 					</>
 				);
@@ -21,8 +21,8 @@ const TodoLogItem = ({ logItem }) => {
 				return (
 					<>
 						<Card.Title>Completed</Card.Title>
-						{item.completed.map((completedTasks) => {
-							return <Card.Text>- {completedTasks}</Card.Text>;
+						{item.completed.map((completedTasks, index) => {
+							return <Card.Text key={index}>- {completedTasks}</Card.Text>;
 						})}
 					</>
 				);
@@ -31,8 +31,8 @@ const TodoLogItem = ({ logItem }) => {
 					<>
 						<Card.Title>Blockers</Card.Title>
 						{item.blockers.length > 0 ? (
-							logItem.blockers.map((blocker) => {
-								return <Card.Text>- {blocker}</Card.Text>;
+							logItem.blockers.map((blocker, index) => {
+								return <Card.Text key={index}>- {blocker}</Card.Text>;
 							})
 						) : (
 							<Card.Text>No blockers</Card.Text>
