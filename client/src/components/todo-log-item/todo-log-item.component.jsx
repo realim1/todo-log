@@ -12,18 +12,26 @@ const TodoLogItem = ({ logItem }) => {
 				return (
 					<>
 						<Card.Title>Todos</Card.Title>
-						{item.todos.map((todo, index) => {
-							return <Card.Text key={index}>- {todo}</Card.Text>;
-						})}
+						{item.todos.length > 0 ? (
+							logItem.todos.map((todo, index) => {
+								return <Card.Text key={index}>- {todo}</Card.Text>;
+							})
+						) : (
+							<Card.Text>No todo tasks</Card.Text>
+						)}
 					</>
 				);
 			case "completed":
 				return (
 					<>
 						<Card.Title>Completed</Card.Title>
-						{item.completed.map((completedTasks, index) => {
-							return <Card.Text key={index}>- {completedTasks}</Card.Text>;
-						})}
+						{item.completed.length > 0 ? (
+							logItem.completed.map((completed, index) => {
+								return <Card.Text key={index}>- {completed}</Card.Text>;
+							})
+						) : (
+							<Card.Text>No completed tasks</Card.Text>
+						)}
 					</>
 				);
 			case "blockers":
