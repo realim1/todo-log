@@ -13,6 +13,7 @@ function App() {
 	const closeShowAddItemModal = () => setShowAddItemModal(false);
 	const [testData, setTestData] = useState([
 		{
+			id: 0,
 			date: "1/2/22",
 			todos: [
 				"replicate issue",
@@ -26,18 +27,31 @@ function App() {
 			blockers: ["Cannot access IT tickets", "Mouse was replaced with rat"],
 		},
 		{
+			id: 1,
 			date: "1/3/22",
 			todos: ["fix bugs", "write documentation"],
 			completed: ["Resolved issue with application"],
 			blockers: ["Cannot access IT tickets", "Mouse was replaced with rat"],
 		},
 		{
+			id: 2,
 			date: "1/4/22",
 			todos: ["replicate issue", "fix bugs", "write documentation"],
 			completed: ["Resolved issue with application"],
 			blockers: [],
 		},
 	]);
+
+	//TODO: Indexing with id might not work when moving things to a database, so this method will need some adjustments when moving to a data provider.
+	const onComplete = (logIndex, index) => {
+		let newLogs = [...testData];
+		const completedTodoItem = newLogs[logIndex].todos[index];
+
+		newLogs[logIndex].todos.splice(index, 1);
+		newLogs[logIndex].completed.push(completedTodoItem);
+
+		setTestData(newLogs);
+	};
 
 	const handleSubmit = (e) => {
 		const date = new Date();
@@ -47,6 +61,7 @@ function App() {
 
 		e.preventDefault();
 		const newLog = {
+			id: testData.length,
 			date: formatedDate,
 			todos: todos.filter((item) => item),
 			completed: completeds.filter((item) => item),
@@ -64,7 +79,14 @@ function App() {
 				Add Log Item +
 			</Button>
 			{testData.map((logItem, index) => {
-				return <TodoLogItem key={index} logItem={logItem} />;
+				return (
+					<TodoLogItem
+						key={index}
+						index={index}
+						logItem={logItem}
+						onComplete={onComplete}
+					/>
+				);
 			})}
 			<Modal show={showAddItemModal}>
 				<Modal.Header>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Card, Nav } from "react-bootstrap";
+import { Card, Nav, Button } from "react-bootstrap";
 
 import "./todo-log-item.style.scss";
 
-const TodoLogItem = ({ logItem }) => {
+const TodoLogItem = ({ logItem, onComplete }) => {
 	const [activeNav, setActiveNav] = useState("todos");
 
 	const buildCardBody = (item) => {
@@ -14,7 +14,17 @@ const TodoLogItem = ({ logItem }) => {
 						<Card.Title>Todos</Card.Title>
 						{item.todos.length > 0 ? (
 							logItem.todos.map((todo, index) => {
-								return <Card.Text key={index}>- {todo}</Card.Text>;
+								return (
+									<Card.Text key={index}>
+										<Button
+											variant='outline-success'
+											size='sm'
+											onClick={() => onComplete(logItem.id, index)}>
+											Completed
+										</Button>{" "}
+										- {todo}
+									</Card.Text>
+								);
 							})
 						) : (
 							<Card.Text>No todo tasks</Card.Text>
