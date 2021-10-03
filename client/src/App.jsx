@@ -53,6 +53,14 @@ function App() {
 		setTestData(newLogs);
 	};
 
+	const onRemove = (logIndex) => {
+		let newLogs = [...testData];
+
+		newLogs.splice(logIndex, 1);
+
+		setTestData(newLogs);
+	};
+
 	const handleSubmit = (e) => {
 		const date = new Date();
 
@@ -85,6 +93,7 @@ function App() {
 						index={index}
 						logItem={logItem}
 						onComplete={onComplete}
+						onRemove={onRemove}
 					/>
 				);
 			})}

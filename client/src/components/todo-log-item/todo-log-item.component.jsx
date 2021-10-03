@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Card, Nav, Button } from "react-bootstrap";
+import { Trash } from "react-bootstrap-icons";
 
 import "./todo-log-item.style.scss";
 
-const TodoLogItem = ({ logItem, onComplete }) => {
+const TodoLogItem = ({ logItem, onComplete, onRemove }) => {
 	const [activeNav, setActiveNav] = useState("todos");
 
 	const buildCardBody = (item) => {
@@ -80,6 +81,11 @@ const TodoLogItem = ({ logItem, onComplete }) => {
 					<Nav.Item>
 						<Nav.Link href='#blockers' onClick={() => setActiveNav("blockers")}>
 							Blockers
+						</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link onClick={() => onRemove(logItem.id)}>
+							<Trash className='text-danger' />
 						</Nav.Link>
 					</Nav.Item>
 				</Nav>
