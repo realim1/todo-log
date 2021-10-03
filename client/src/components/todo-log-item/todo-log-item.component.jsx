@@ -20,7 +20,7 @@ const TodoLogItem = ({ logItem, onComplete, onRemove }) => {
 										<Button
 											variant='outline-success'
 											size='sm'
-											onClick={() => onComplete(logItem.id, index)}>
+											onClick={() => onComplete(logItem, index)}>
 											Completed
 										</Button>{" "}
 										- {todo}
@@ -84,7 +84,7 @@ const TodoLogItem = ({ logItem, onComplete, onRemove }) => {
 						</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link onClick={() => onRemove(logItem.id)}>
+						<Nav.Link onClick={() => onRemove(logItem)}>
 							<Trash className='text-danger' />
 						</Nav.Link>
 					</Nav.Item>
