@@ -42,7 +42,6 @@ function App() {
 		},
 	]);
 
-	//TODO: Indexing with id might not work when moving things to a database, so this method will need some adjustments when moving to a data provider.
 	const onComplete = (logItem, index) => {
 		let newLogs = [...testData];
 		const logIndex = newLogs.findIndex((item) => item === logItem);
