@@ -1,0 +1,19 @@
+{
+	"name": "todo-log",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"client-start": "cd client && yarn start",
+		"server-start": "cd server && npm start"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/realim1/todo-log.git"
+	},
+	"author": "Markus Realica",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/realim1/todo-log/issues"
+	},
+	"homepage": "https://github.com/realim1/todo-log#readme"
+}
