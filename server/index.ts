@@ -1,7 +1,7 @@
-const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
-const dotenv = require("dotenv");
+import * as express from "express";
+import * as morgan from "morgan";
+import * as cors from "cors";
+import * as dotenv from "dotenv";
 
 dotenv.config({ path: "./config/config.env" });
 
