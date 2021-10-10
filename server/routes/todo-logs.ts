@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as dotenv from "dotenv";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 dotenv.config({ path: "./server/config.env" });
 
@@ -36,8 +36,18 @@ router.get("/getTodoLogs", async (req, res) => {
 	});
 });
 
-router.delete("/removeTodoLog", (req, res) => {
-	res.send("Removed Todo Log");
+router.delete("/removeTodoLog/:id", async (req, res) => {
+	const todoLogsCollection = await loadCollection("Todo-logs", "logItems");
+	todoLogsCollection.deleteOne(
+		{ _id: new ObjectId(req.params.id) },
+		function (error, response) {
+			if (error) {
+				console.log("Error occured while deleting");
+			} else {
+				res.status(202).send(response);
+			}
+		}
+	);
 });
 
 const loadCollection = async (dbName: string, collectionName: string) => {
