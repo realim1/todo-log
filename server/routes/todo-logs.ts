@@ -25,8 +25,15 @@ router.post("/addTodoLog", async (req, res) => {
 	);
 });
 
-router.get("/getTodoLogs", (req, res) => {
-	res.send("Got Todo Logs");
+router.get("/getTodoLogs", async (req, res) => {
+	const todoLogsCollection = await loadCollection("Todo-logs", "logItems");
+	todoLogsCollection.find({}).toArray(function (error, response) {
+		if (error) {
+			console.log("Error occured while retrieving logItems");
+		} else {
+			res.status(200).send(response);
+		}
+	});
 });
 
 router.delete("/removeTodoLog", (req, res) => {
