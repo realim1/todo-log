@@ -2,10 +2,16 @@ import * as express from "express";
 import * as morgan from "morgan";
 import * as cors from "cors";
 import * as dotenv from "dotenv";
+import * as bodyParser from "body-parser";
 
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
+
+app.use(bodyParser.json());
+
+//Routes
+app.use("/", require("./routes/todo-logs"));
 
 //Handle development
 if (process.env.NODE_ENV === "development") {
@@ -28,5 +34,5 @@ if (process.env.NODE_ENV === "production") {
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-	console.log(`Server is running on port ${port}`);
+	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`);
 });
