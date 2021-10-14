@@ -27,12 +27,11 @@ function App() {
 	};
 
 	const onRemove = (logItem) => {
-		let newLogs = [...todoLogs];
-
-		const logIndex = newLogs.findIndex((item) => item === logItem);
-		newLogs.splice(logIndex, 1);
-
-		setTodoLogs(newLogs);
+		axios
+			.delete("http://localhost:5000/removeTodoLog/" + logItem._id)
+			.then((res) => {
+				setTodoLogs(res.data);
+			});
 	};
 
 	const handleSubmit = (e) => {
@@ -48,7 +47,9 @@ function App() {
 			completed: completeds.filter((item) => item),
 			blockers: blockers.filter((item) => item),
 		};
-		setTodoLogs([...todoLogs, newLog]);
+		axios.post("http://localhost:5000/addTodoLog", newLog).then((res) => {
+			setTodoLogs(res.data);
+		});
 	};
 
 	useEffect(() => {
