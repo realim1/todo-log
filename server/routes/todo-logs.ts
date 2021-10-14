@@ -15,11 +15,17 @@ router.post("/addTodoLog", async (req, res) => {
 			completed: req.body.completed,
 			blockers: req.body.blockers,
 		},
-		function (error, response) {
+		function (error) {
 			if (error) {
 				console.log("Error occurred while inserting");
 			} else {
-				res.status(201).send(response);
+				todoLogsCollection.find({}).toArray(function (error, response) {
+					if (error) {
+						console.log("Error occured retrieving logItems after insert");
+					} else {
+						res.status(201).send(response);
+					}
+				});
 			}
 		}
 	);
@@ -40,11 +46,17 @@ router.delete("/removeTodoLog/:id", async (req, res) => {
 	const todoLogsCollection = await loadCollection("Todo-logs", "logItems");
 	todoLogsCollection.deleteOne(
 		{ _id: new ObjectId(req.params.id) },
-		function (error, response) {
+		function (error) {
 			if (error) {
 				console.log("Error occured while deleting");
 			} else {
-				res.status(202).send(response);
+				todoLogsCollection.find({}).toArray(function (error, response) {
+					if (error) {
+						console.log("Error occured retrieving logItems after delete");
+					} else {
+						res.status(202).send(response);
+					}
+				});
 			}
 		}
 	);

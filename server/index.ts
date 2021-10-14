@@ -10,9 +10,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-//Routes
-app.use("/", require("./routes/todo-logs"));
-
 //Handle development
 if (process.env.NODE_ENV === "development") {
 	//Dev loggin
@@ -21,6 +18,9 @@ if (process.env.NODE_ENV === "development") {
 	//Access-Control-Allow-Origin: *
 	app.use(cors());
 }
+
+//Routes
+app.use("/", require("./routes/todo-logs"));
 
 //Handle production
 if (process.env.NODE_ENV === "production") {

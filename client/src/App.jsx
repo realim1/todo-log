@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Button, Modal, Form } from "react-bootstrap";
+import axios from "axios";
+
 import TodoLogItem from "./components/todo-log-item/todo-log-item.component";
 import InputList from "./components/input-list/input-list.component";
 import "./App.scss";
@@ -11,55 +13,25 @@ function App() {
 
 	const [showAddItemModal, setShowAddItemModal] = useState(false);
 	const closeShowAddItemModal = () => setShowAddItemModal(false);
-	const [testData, setTestData] = useState([
-		{
-			id: 0,
-			date: "1/2/22",
-			todos: [
-				"replicate issue",
-				"fix bugs",
-				"write documentation",
-				"replicate issue",
-				"fix bugs",
-				"write documentation",
-			],
-			completed: ["Resolved issue with application"],
-			blockers: ["Cannot access IT tickets", "Mouse was replaced with rat"],
-		},
-		{
-			id: 1,
-			date: "1/3/22",
-			todos: ["fix bugs", "write documentation"],
-			completed: ["Resolved issue with application"],
-			blockers: ["Cannot access IT tickets", "Mouse was replaced with rat"],
-		},
-		{
-			id: 2,
-			date: "1/4/22",
-			todos: ["replicate issue", "fix bugs", "write documentation"],
-			completed: ["Resolved issue with application"],
-			blockers: [],
-		},
-	]);
+	const [todoLogs, setTodoLogs] = useState([]);
 
 	const onComplete = (logItem, index) => {
-		let newLogs = [...testData];
+		let newLogs = [...todoLogs];
 		const logIndex = newLogs.findIndex((item) => item === logItem);
 		const completedTodoItem = newLogs[logIndex].todos[index];
 
 		newLogs[logIndex].todos.splice(index, 1);
 		newLogs[logIndex].completed.push(completedTodoItem);
 
-		setTestData(newLogs);
+		setTodoLogs(newLogs);
 	};
 
 	const onRemove = (logItem) => {
-		let newLogs = [...testData];
-
-		const logIndex = newLogs.findIndex((item) => item === logItem);
-		newLogs.splice(logIndex, 1);
-
-		setTestData(newLogs);
+		axios
+			.delete("http://localhost:5000/removeTodoLog/" + logItem._id)
+			.then((res) => {
+				setTodoLogs(res.data);
+			});
 	};
 
 	const handleSubmit = (e) => {
@@ -70,14 +42,21 @@ function App() {
 
 		e.preventDefault();
 		const newLog = {
-			id: testData.length,
 			date: formatedDate,
 			todos: todos.filter((item) => item),
 			completed: completeds.filter((item) => item),
 			blockers: blockers.filter((item) => item),
 		};
-		setTestData([...testData, newLog]);
+		axios.post("http://localhost:5000/addTodoLog", newLog).then((res) => {
+			setTodoLogs(res.data);
+		});
 	};
+
+	useEffect(() => {
+		axios.get("http://localhost:5000/getTodoLogs").then((res) => {
+			setTodoLogs(res.data);
+		});
+	}, []);
 
 	return (
 		<Container>
@@ -87,7 +66,7 @@ function App() {
 				onClick={() => setShowAddItemModal(true)}>
 				Add Log Item +
 			</Button>
-			{testData.map((logItem, index) => {
+			{todoLogs.map((logItem, index) => {
 				return (
 					<TodoLogItem
 						key={index}
