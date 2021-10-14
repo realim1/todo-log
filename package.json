@@ -4,7 +4,8 @@
 	"description": "",
 	"scripts": {
 		"client-start": "cd client && yarn start",
-		"server-start": "cd server && npm start"
+		"server-start": "cd server && npm start",
+		"start": "concurrently \"npm run server-start\" \"npm run client-start\""
 	},
 	"repository": {
 		"type": "git",
@@ -15,5 +16,8 @@
 	"bugs": {
 		"url": "https://github.com/realim1/todo-log/issues"
 	},
-	"homepage": "https://github.com/realim1/todo-log#readme"
+	"homepage": "https://github.com/realim1/todo-log#readme",
+	"dependencies": {
+		"concurrently": "^6.3.0"
+	}
 }
