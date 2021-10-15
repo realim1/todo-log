@@ -7,7 +7,7 @@
 		"client-build": "cd client && yarn build",
 		"server-start": "cd server && npm start",
 		"dev": "concurrently \"npm run server-start\" \"npm run client-start\"",
-		"start": "concurrently \"npm run server-start\" \"npm run client-build\""
+		"start": "concurrently \"npm run client-build\" \"npm run server-start\""
 	},
 	"repository": {
 		"type": "git",
