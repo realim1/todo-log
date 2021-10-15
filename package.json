@@ -4,8 +4,10 @@
 	"description": "",
 	"scripts": {
 		"client-start": "cd client && yarn start",
+		"client-build": "cd client && yarn build",
 		"server-start": "cd server && npm start",
-		"start": "concurrently \"npm run server-start\" \"npm run client-start\""
+		"dev": "concurrently \"npm run server-start\" \"npm run client-start\"",
+		"start": "concurrently \"npm run server-start\" \"npm run client-build\""
 	},
 	"repository": {
 		"type": "git",
