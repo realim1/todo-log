@@ -2,7 +2,7 @@
 	"name": "server",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.ts",
+	"main": "dist/index.js",
 	"scripts": {
 		"start": "npm run build && node dist/index.js",
 		"build": "tsc",
