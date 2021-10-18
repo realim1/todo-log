@@ -2,12 +2,15 @@
 	"name": "todo-log",
 	"version": "1.0.0",
 	"description": "",
+	"main": "server/dist/index.js",
 	"scripts": {
 		"client-start": "cd client && yarn start",
 		"client-build": "cd client && yarn build",
 		"server-start": "cd server && npm start",
+		"server-build": "cd server && npm run build",
 		"dev": "concurrently \"npm run server-start\" \"npm run client-start\"",
-		"start": "concurrently \"npm run client-build\" \"npm run server-start\""
+		"start": "cd server && npm run start",
+		"build": "npm run client-build && npm run server-build"
 	},
 	"repository": {
 		"type": "git",
