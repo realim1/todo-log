@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === "production") {
 	app.use(express.static(__dirname + "/build"));
 
 	//Handle SPA
-	app.get(/.*/, (req, res) => res.sendFile(__dirname + "/../build/index.html"));
+	app.get(/.*/, (req, res) => res.sendFile(__dirname + "/build/index.html"));
 }
 
 const port = process.env.PORT || 8000;

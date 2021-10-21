@@ -1,6 +1,7 @@
 {
 	"name": "todo-log",
 	"version": "0.1.0",
+	"homepage": ".",
 	"private": true,
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.11.4",
@@ -18,7 +19,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build && mv build ../server/build",
+		"build": "react-scripts build && mv build ../server/dist/build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},

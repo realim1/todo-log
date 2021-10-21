@@ -10,7 +10,7 @@
 		"server-build": "cd server && npm run build",
 		"dev": "concurrently \"npm run server-start\" \"npm run client-start\"",
 		"start": "cd server && npm run start",
-		"build": "npm run client-build && npm run server-build"
+		"build": "npm run server-build && npm run client-build"
 	},
 	"repository": {
 		"type": "git",
