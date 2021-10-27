@@ -6,7 +6,7 @@
 	"scripts": {
 		"client-start": "cd client && yarn start",
 		"client-build": "cd client && yarn build",
-		"client-install": "cd client && yarn install",
+		"client-install": "cd client && npm install",
 		"server-start": "cd server && npm start",
 		"server-build": "cd server && npm run build",
 		"server-install": "cd server && npm install",
