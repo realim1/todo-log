@@ -6,10 +6,13 @@
 	"scripts": {
 		"client-start": "cd client && yarn start",
 		"client-build": "cd client && yarn build",
+		"client-install": "cd client && yarn install",
 		"server-start": "cd server && npm start",
 		"server-build": "cd server && npm run build",
+		"server-install": "cd server && npm install",
 		"dev": "concurrently \"npm run server-start\" \"npm run client-start\"",
-		"start": "cd server && npm run start",
+		"install": "npm run server-install && npm run client-install",
+		"start": "npm run install && cd server && npm run start",
 		"build": "npm run server-build && npm run client-build"
 	},
 	"repository": {
