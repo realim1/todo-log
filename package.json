@@ -24,7 +24,7 @@
 	"bugs": {
 		"url": "https://github.com/realim1/todo-log/issues"
 	},
-	"homepage": "https://github.com/realim1/todo-log#readme",
+	"homepage": "*",
 	"dependencies": {
 		"concurrently": "^6.3.0"
 	}
