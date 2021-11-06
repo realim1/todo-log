@@ -1,31 +1,31 @@
 {
-	"name": "todo-log",
+	"name": "server",
 	"version": "1.0.0",
 	"description": "",
-	"main": "server/dist/index.js",
+	"main": "dist/index.js",
 	"scripts": {
-		"client-start": "cd client && npm run start",
-		"client-build": "cd client && npm run build",
-		"client-install": "cd client && npm install",
-		"server-start": "cd server && npm start",
-		"server-build": "cd server && npm run build",
-		"server-install": "cd server && npm install",
-		"dev": "concurrently \"npm run server-start\" \"npm run client-start\"",
-		"install": "npm run server-install && npm run client-install",
-		"start": "npm run install && cd server && npm run start",
-		"build": "npm run server-build && npm run client-build"
+		"start": "node dist/index.js",
+		"tsc": "tsc",
+		"heroku-postbuild": "npm run tsc",
+		"dev": "nodemon index.ts"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/realim1/todo-log.git"
-	},
-	"author": "Markus Realica",
+	"author": "",
 	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/realim1/todo-log/issues"
-	},
-	"homepage": "*",
 	"dependencies": {
-		"concurrently": "^6.3.0"
+		"body-parser": "^1.19.0",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"mongodb": "^4.1.3",
+		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.12",
+		"@types/express": "^4.17.13",
+		"@types/morgan": "^1.9.3",
+		"@types/node": "16.10.3",
+		"nodemon": "^2.0.13",
+		"ts-node": "^10.2.1",
+		"typescript": "^4.4.3"
 	}
 }
