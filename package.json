@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "dist/index.js",
 	"scripts": {
-		"start": "node dist/index.js",
+		"client-build": "cd client && npm run build",
+		"start": "npm run client-build && node dist/index.js",
 		"tsc": "tsc",
 		"heroku-postbuild": "npm run tsc",
 		"dev": "nodemon index.ts"
