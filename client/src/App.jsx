@@ -27,11 +27,9 @@ function App() {
 	};
 
 	const onRemove = (logItem) => {
-		axios
-			.delete("http://localhost:5000/removeTodoLog/" + logItem._id)
-			.then((res) => {
-				setTodoLogs(res.data);
-			});
+		axios.delete("/removeTodoLog/" + logItem._id).then((res) => {
+			setTodoLogs(res.data);
+		});
 	};
 
 	const handleSubmit = (e) => {
@@ -47,13 +45,13 @@ function App() {
 			completed: completeds.filter((item) => item),
 			blockers: blockers.filter((item) => item),
 		};
-		axios.post("http://localhost:5000/addTodoLog", newLog).then((res) => {
+		axios.post("/addTodoLog", newLog).then((res) => {
 			setTodoLogs(res.data);
 		});
 	};
 
 	useEffect(() => {
-		axios.get("http://localhost:5000/getTodoLogs").then((res) => {
+		axios.get("/getTodoLogs").then((res) => {
 			setTodoLogs(res.data);
 		});
 	}, []);
