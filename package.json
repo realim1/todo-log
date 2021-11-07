@@ -4,10 +4,10 @@
 	"description": "",
 	"main": "dist/index.js",
 	"scripts": {
-		"heroku-prebuild": "cd client && npm run build",
+		"client-build": "cd client && npm run build",
 		"start": "node dist/index.js",
 		"tsc": "tsc",
-		"heroku-postbuild": "npm run tsc",
+		"heroku-postbuild": "npm run tsc && npm run client-build",
 		"dev": "nodemon index.ts"
 	},
 	"author": "",
