@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Container, Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 
-import TodoLogItem from "./components/todo-log-item/todo-log-item.component";
-import InputList from "./components/input-list/input-list.component";
-import "./App.scss";
+import TodoLogItem from "../../components/todo-log-item/todo-log-item.component";
+import InputList from "../../components/input-list/input-list.component";
+import "./TodoLogPage.style.scss";
 
-function App() {
+const TodoLogPage = () => {
 	const [todos, setTodos] = useState([""]);
 	const [completeds, setCompleteds] = useState([""]);
 	const [blockers, setBlockers] = useState([""]);
@@ -100,6 +100,6 @@ function App() {
 			</Modal>
 		</Container>
 	);
-}
+};
 
-export default App;
+export default TodoLogPage;
