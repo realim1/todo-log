@@ -21,6 +21,7 @@ if (process.env.NODE_ENV === "development") {
 
 //Routes
 app.use("/", require("./routes/todo-logs"));
+app.use("/", require("./routes/users"));
 
 //Handle production
 if (process.env.NODE_ENV === "production") {

@@ -1,0 +1,53 @@
+import * as express from "express";
+import * as dotenv from "dotenv";
+import { MongoClient, ObjectId } from "mongodb";
+import * as bcrypt from "bcryptjs";
+
+dotenv.config({ path: "./server/config.env" });
+
+const router = express.Router();
+
+router.post("/createAccount", async (req, res) => {
+	const usersCollection = await loadCollection("Users", "users");
+
+	var errors = [];
+
+	const emailExists = await usersCollection
+		.find({ email: req.body.email })
+		.count();
+
+	if (emailExists > 0) {
+		errors.push("Email is already being used");
+	}
+
+	if (errors.length === 0) {
+		bcrypt.genSalt(10, function (err, salt) {
+			bcrypt.hash(req.body.password, salt, function (err, hash) {
+				usersCollection.insertOne(
+					{
+						email: req.body.email,
+						password: hash,
+						accountCreatedAt: new Date(),
+					},
+					function (error, response) {
+						if (error) {
+							console.log("Error occurred while inserting");
+						} else {
+							res.status(201).send("Account was successfully created!");
+						}
+					}
+				);
+			});
+		});
+	} else {
+		res.status(422).send(errors);
+	}
+});
+
+const loadCollection = async (dbName: string, collectionName: string) => {
+	const client = await MongoClient.connect(process.env.MONGODB_URI!);
+
+	return client.db(dbName).collection(collectionName);
+};
+
+module.exports = router;
