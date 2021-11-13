@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, Form, Button } from "react-bootstrap";
+import axios from "axios";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 import "./sign-up.style.scss";
 
@@ -33,6 +35,22 @@ const validate = (values) => {
 };
 
 const SignUp = () => {
+	const navigate = useNavigate();
+	const onSubmit = (values) => {
+		axios
+			.post("/createAccount", values)
+			.then((res) => {
+				if (res.status === 201) {
+					navigate("/logs");
+				}
+			})
+			.catch((error) => {
+				if (error.response) {
+					alert(error.response.data);
+				}
+			});
+	};
+
 	const formik = useFormik({
 		initialValues: {
 			email: "",
@@ -40,9 +58,7 @@ const SignUp = () => {
 			confirmPassword: "",
 		},
 		validate,
-		onSubmit: (values) => {
-			alert(JSON.stringify(values, null, 2));
-		},
+		onSubmit,
 	});
 
 	return (
