@@ -7,7 +7,7 @@ import "./App.scss";
 const App = () => {
 	return (
 		<Routes>
-			<Route path='/' element={<LoginPage />} />
+			<Route path='/*' element={<LoginPage />} />
 			<Route path='/logs' element={<TodoLogPage />} />
 		</Routes>
 	);
