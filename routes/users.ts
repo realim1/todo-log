@@ -44,6 +44,24 @@ router.post("/createAccount", async (req, res) => {
 	}
 });
 
+router.post("/login", async (req, res) => {
+	const usersCollection = await loadCollection("Users", "users");
+
+	usersCollection.findOne({ email: req.body.email }).then((user) => {
+		if (!user) {
+			return res.status(404).send("User not found");
+		}
+
+		bcrypt.compare(req.body.password, user.password).then((isMatch) => {
+			if (isMatch) {
+				res.status(201).send("Login Successful");
+			} else {
+				res.status(404).send("Password Incorrect");
+			}
+		});
+	});
+});
+
 const loadCollection = async (dbName: string, collectionName: string) => {
 	const client = await MongoClient.connect(process.env.MONGODB_URI!);
 
