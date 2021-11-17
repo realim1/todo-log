@@ -41,6 +41,7 @@ const SignUp = () => {
 			.post("/createAccount", values)
 			.then((res) => {
 				if (res.status === 201) {
+					localStorage.token = res.data;
 					navigate("/logs");
 				}
 			})

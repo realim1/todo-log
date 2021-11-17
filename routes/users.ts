@@ -2,6 +2,7 @@ import * as express from "express";
 import * as dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
 import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
 
 dotenv.config({ path: "./server/config.env" });
 
@@ -33,7 +34,18 @@ router.post("/createAccount", async (req, res) => {
 						if (error) {
 							console.log("Error occurred while inserting");
 						} else {
-							res.status(201).send("Account was successfully created!");
+							usersCollection
+								.findOne({ email: req.body.email })
+								.then((user) => {
+									jwt.sign(
+										{ user },
+										process.env.CRYPT_KEY as string,
+										(err: any, token: any) => {
+											if (err) res.status(404).send("Signature Failed");
+											else res.status(201).send(token);
+										}
+									);
+								});
 						}
 					}
 				);
@@ -54,7 +66,14 @@ router.post("/login", async (req, res) => {
 
 		bcrypt.compare(req.body.password, user.password).then((isMatch) => {
 			if (isMatch) {
-				res.status(201).send("Login Successful");
+				jwt.sign(
+					{ user },
+					process.env.CRYPT_KEY as string,
+					(err: any, token: any) => {
+						if (err) res.status(404).send("Signature Failed");
+						else res.status(201).send(token);
+					}
+				);
 			} else {
 				res.status(404).send("Password Incorrect");
 			}

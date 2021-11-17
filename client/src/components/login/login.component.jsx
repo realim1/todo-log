@@ -32,8 +32,8 @@ const Login = () => {
 		axios
 			.post("/login", values)
 			.then((res) => {
-				console.log(res);
 				if (res.status === 201) {
+					localStorage.token = res.data;
 					navigate("/logs");
 				}
 			})
