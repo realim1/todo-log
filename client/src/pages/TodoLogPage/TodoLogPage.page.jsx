@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 
@@ -14,6 +15,8 @@ const TodoLogPage = () => {
 	const [showAddItemModal, setShowAddItemModal] = useState(false);
 	const closeShowAddItemModal = () => setShowAddItemModal(false);
 	const [todoLogs, setTodoLogs] = useState([]);
+
+	const navigate = useNavigate();
 
 	const onComplete = (logItem, index) => {
 		let newLogs = [...todoLogs];
@@ -51,10 +54,14 @@ const TodoLogPage = () => {
 	};
 
 	useEffect(() => {
+		if (!localStorage.token) {
+			navigate("/");
+		}
+
 		axios.get("/getTodoLogs").then((res) => {
 			setTodoLogs(res.data);
 		});
-	}, []);
+	}, [navigate]);
 
 	return (
 		<Container>
