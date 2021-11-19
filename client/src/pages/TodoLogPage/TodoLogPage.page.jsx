@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Button, Modal, Form } from "react-bootstrap";
+import { Container, Row, Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 
 import TodoLogItem from "../../components/todo-log-item/todo-log-item.component";
@@ -63,6 +63,11 @@ const TodoLogPage = () => {
 		});
 	};
 
+	const handleLogOut = () => {
+		localStorage.removeItem("token");
+		navigate("/");
+	};
+
 	useEffect(() => {
 		if (!localStorage.token) {
 			navigate("/");
@@ -79,7 +84,12 @@ const TodoLogPage = () => {
 
 	return (
 		<Container>
-			<header className='my-3'>Todo Log</header>
+			<Row as='header' className='my-3 justify-content-between'>
+				<div>Todo Logs</div>
+				<Button variant='outline-primary' onClick={() => handleLogOut()}>
+					Log Out
+				</Button>
+			</Row>
 			<Button
 				className='text-center w-100 mb-3'
 				onClick={() => setShowAddItemModal(true)}>
