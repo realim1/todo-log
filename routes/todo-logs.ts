@@ -6,7 +6,7 @@ dotenv.config({ path: "./server/config.env" });
 
 const router = express.Router();
 
-router.post("/addTodoLog", async (req, res) => {
+router.post("/addTodoLog", verifyToken, async (req, res) => {
 	const todoLogsCollection = await loadCollection("Todo-logs", "logItems");
 	todoLogsCollection.insertOne(
 		{
@@ -31,7 +31,7 @@ router.post("/addTodoLog", async (req, res) => {
 	);
 });
 
-router.get("/getTodoLogs", async (req, res) => {
+router.get("/getTodoLogs", verifyToken, async (req, res) => {
 	const todoLogsCollection = await loadCollection("Todo-logs", "logItems");
 	todoLogsCollection.find({}).toArray(function (error, response) {
 		if (error) {
@@ -42,7 +42,7 @@ router.get("/getTodoLogs", async (req, res) => {
 	});
 });
 
-router.delete("/removeTodoLog/:id", async (req, res) => {
+router.delete("/removeTodoLog/:id", verifyToken, async (req, res) => {
 	const todoLogsCollection = await loadCollection("Todo-logs", "logItems");
 	todoLogsCollection.deleteOne(
 		{ _id: new ObjectId(req.params.id) },
@@ -67,5 +67,22 @@ const loadCollection = async (dbName: string, collectionName: string) => {
 
 	return client.db(dbName).collection(collectionName);
 };
+
+function verifyToken(req: any, res: any, next: () => void) {
+	const bearerHeader = req.headers["authorization"];
+
+	if (typeof bearerHeader !== "undefined") {
+		const bearer = bearerHeader.split(" ");
+		const bearerToken = bearer[1];
+		if (bearerToken !== "undefined") {
+			req.token = bearerToken;
+			next();
+		} else {
+			res.status(403).send("No Bearer Token");
+		}
+	} else {
+		res.status(403).send("No Authorization Key");
+	}
+}
 
 module.exports = router;

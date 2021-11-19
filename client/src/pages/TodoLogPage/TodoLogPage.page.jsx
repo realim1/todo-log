@@ -30,7 +30,11 @@ const TodoLogPage = () => {
 	};
 
 	const onRemove = (logItem) => {
-		axios.delete("/removeTodoLog/" + logItem._id).then((res) => {
+		const headers = {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${localStorage.token}`,
+		};
+		axios.delete("/removeTodoLog/" + logItem._id, { headers }).then((res) => {
 			setTodoLogs(res.data);
 		});
 	};
@@ -48,7 +52,13 @@ const TodoLogPage = () => {
 			completed: completeds.filter((item) => item),
 			blockers: blockers.filter((item) => item),
 		};
-		axios.post("/addTodoLog", newLog).then((res) => {
+
+		const headers = {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${localStorage.token}`,
+		};
+
+		axios.post("/addTodoLog", newLog, { headers }).then((res) => {
 			setTodoLogs(res.data);
 		});
 	};
@@ -58,9 +68,13 @@ const TodoLogPage = () => {
 			navigate("/");
 		}
 
-		axios.get("/getTodoLogs").then((res) => {
-			setTodoLogs(res.data);
-		});
+		axios
+			.get("/getTodoLogs", {
+				headers: { Authorization: `Bearer ${localStorage.token}` },
+			})
+			.then((res) => {
+				setTodoLogs(res.data);
+			});
 	}, [navigate]);
 
 	return (
