@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, Col, Row } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import "./login.style.scss";
@@ -89,10 +89,23 @@ const Login = () => {
 							{formik.errors.password}
 						</Form.Control.Feedback>
 					</Form.Group>
-					<Button variant='primary' type='submit'>
-						Submit
-					</Button>
+					<Row className='justify-content-center align-items-center'>
+						<Button variant='primary' type='submit'>
+							Submit
+						</Button>
+					</Row>
 				</Form>
+
+				<Col className='mt-4'>
+					<Row className='justify-content-center align-items-center'>
+						<Button
+							variant='link'
+							className='text-align-center'
+							onClick={() => navigate("/signup")}>
+							Don't have an account?
+						</Button>
+					</Row>
+				</Col>
 			</Card.Body>
 		</Card>
 	);

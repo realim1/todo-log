@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -115,10 +115,23 @@ const SignUp = () => {
 						</Form.Control.Feedback>
 					</Form.Group>
 
-					<Button variant='primary' type='submit'>
-						Submit
-					</Button>
+					<Row className='justify-content-center align-items-center'>
+						<Button variant='primary' type='submit'>
+							Submit
+						</Button>
+					</Row>
 				</Form>
+
+				<Col className='mt-4'>
+					<Row className='justify-content-center align-items-center'>
+						<Button
+							variant='link'
+							className='text-align-center'
+							onClick={() => navigate("/login")}>
+							Already have an account?
+						</Button>
+					</Row>
+				</Col>
 			</Card.Body>
 		</Card>
 	);
