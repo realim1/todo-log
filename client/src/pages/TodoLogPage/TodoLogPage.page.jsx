@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Modal, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Container, Row, Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 
-import TodoLogItem from "./components/todo-log-item/todo-log-item.component";
-import InputList from "./components/input-list/input-list.component";
-import "./App.scss";
+import TodoLogItem from "../../components/todo-log-item/todo-log-item.component";
+import InputList from "../../components/input-list/input-list.component";
+import "./TodoLogPage.style.scss";
 
-function App() {
+const TodoLogPage = () => {
 	const [todos, setTodos] = useState([""]);
 	const [completeds, setCompleteds] = useState([""]);
 	const [blockers, setBlockers] = useState([""]);
@@ -14,6 +15,8 @@ function App() {
 	const [showAddItemModal, setShowAddItemModal] = useState(false);
 	const closeShowAddItemModal = () => setShowAddItemModal(false);
 	const [todoLogs, setTodoLogs] = useState([]);
+
+	const navigate = useNavigate();
 
 	const onComplete = (logItem, index) => {
 		let newLogs = [...todoLogs];
@@ -27,7 +30,11 @@ function App() {
 	};
 
 	const onRemove = (logItem) => {
-		axios.delete("/removeTodoLog/" + logItem._id).then((res) => {
+		const headers = {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${localStorage.token}`,
+		};
+		axios.delete("/removeTodoLog/" + logItem._id, { headers }).then((res) => {
 			setTodoLogs(res.data);
 		});
 	};
@@ -45,20 +52,44 @@ function App() {
 			completed: completeds.filter((item) => item),
 			blockers: blockers.filter((item) => item),
 		};
-		axios.post("/addTodoLog", newLog).then((res) => {
+
+		const headers = {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${localStorage.token}`,
+		};
+
+		axios.post("/addTodoLog", newLog, { headers }).then((res) => {
 			setTodoLogs(res.data);
 		});
 	};
 
+	const handleLogOut = () => {
+		localStorage.removeItem("token");
+		navigate("/");
+	};
+
 	useEffect(() => {
-		axios.get("/getTodoLogs").then((res) => {
-			setTodoLogs(res.data);
-		});
-	}, []);
+		if (!localStorage.token) {
+			navigate("/");
+		}
+
+		axios
+			.get("/getTodoLogs", {
+				headers: { Authorization: `Bearer ${localStorage.token}` },
+			})
+			.then((res) => {
+				setTodoLogs(res.data);
+			});
+	}, [navigate]);
 
 	return (
 		<Container>
-			<header className='my-3'>Todo Log</header>
+			<Row as='header' className='my-3 justify-content-between'>
+				<div>Todo Logs</div>
+				<Button variant='outline-primary' onClick={() => handleLogOut()}>
+					Log Out
+				</Button>
+			</Row>
 			<Button
 				className='text-center w-100 mb-3'
 				onClick={() => setShowAddItemModal(true)}>
@@ -100,6 +131,6 @@ function App() {
 			</Modal>
 		</Container>
 	);
-}
+};
 
-export default App;
+export default TodoLogPage;
