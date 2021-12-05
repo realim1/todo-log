@@ -75,6 +75,7 @@ const SignUp = () => {
 							type='email'
 							value={formik.values.email}
 							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
 							placeholder='Enter email'
 							isInvalid={!!formik.errors.email}
 						/>
@@ -91,8 +92,9 @@ const SignUp = () => {
 							type='password'
 							value={formik.values.password}
 							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
 							placeholder='Password'
-							isInvalid={!!formik.errors.password}
+							isInvalid={formik.touched.password && !!formik.errors.password}
 						/>
 						<Form.Control.Feedback type='invalid'>
 							{formik.errors.password}
@@ -107,8 +109,12 @@ const SignUp = () => {
 							type='password'
 							value={formik.values.confirmPassword}
 							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
 							placeholder='Password'
-							isInvalid={formik.errors.confirmPassword}
+							isInvalid={
+								formik.touched.confirmPassword &&
+								!!formik.errors.confirmPassword
+							}
 						/>
 						<Form.Control.Feedback type='invalid'>
 							{formik.errors.confirmPassword}
