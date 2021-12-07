@@ -91,11 +91,11 @@ const Login = () => {
 							{formik.errors.password}
 						</Form.Control.Feedback>
 					</Form.Group>
-					<Row className='justify-content-center align-items-center'>
+					<div className='d-grid gap-2'>
 						<Button variant='primary' type='submit'>
-							Submit
+							Login
 						</Button>
-					</Row>
+					</div>
 				</Form>
 
 				<Col className='mt-4'>

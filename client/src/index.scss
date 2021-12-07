@@ -1,5 +1,13 @@
 @import "~bootstrap/scss/bootstrap";
 
+.gap-2 {
+	gap: 0.5rem !important;
+}
+
+.d-grid {
+	display: grid !important;
+}
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
