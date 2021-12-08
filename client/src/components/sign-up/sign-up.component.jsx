@@ -3,6 +3,7 @@ import { Card, Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/images/todo-logo.svg";
 
 import "./sign-up.style.scss";
 
@@ -64,8 +65,14 @@ const SignUp = () => {
 
 	return (
 		<Card style={{ width: "30rem" }}>
-			<Card.Header>Sign Up</Card.Header>
 			<Card.Body>
+				<Row className='justify-content-center'>
+					<img className='logo mb-2' src={logo} alt='Todo Log Logo' />
+				</Row>
+				<h1 className='h3 mb-4 text-center'>Todo Log</h1>
+				<hr />
+				<h2 className='h5 mb-3 text-center'>Sign Up</h2>
+
 				<Form noValidate onSubmit={formik.handleSubmit}>
 					<Form.Group className='mb-4' controlId='signUpEmail'>
 						<Form.Label>Email address</Form.Label>

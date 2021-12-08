@@ -3,6 +3,7 @@ import axios from "axios";
 import { Card, Form, Button, Col, Row } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/images/todo-logo.svg";
 import "./login.style.scss";
 
 const validate = (values) => {
@@ -55,8 +56,13 @@ const Login = () => {
 
 	return (
 		<Card style={{ width: "30rem" }}>
-			<Card.Header>Login</Card.Header>
 			<Card.Body>
+				<Row className='justify-content-center'>
+					<img className='logo mb-2' src={logo} alt='Todo Log Logo' />
+				</Row>
+				<h1 className='h3 mb-4 text-center'>Todo Log</h1>
+				<hr />
+				<h2 className='h5 mb-3 text-center'>Login</h2>
 				<Form noValidate onSubmit={formik.handleSubmit}>
 					<Form.Group className='mb-4' controlId='loginEmail'>
 						<Form.Label>Email address</Form.Label>
