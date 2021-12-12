@@ -21,7 +21,7 @@ const Header = () => {
 				<img src={logo} className='logo mr-2' alt='Logo' />
 				Todo Logs
 			</div>
-			<Row className='dropdown show justify-content-center align-items-center'>
+			<div className='dropdown d-flex show justify-content-center align-items-center'>
 				<Dropdown>
 					<Dropdown.Toggle as='a' id='dropdown-basic'>
 						<img
@@ -37,7 +37,7 @@ const Header = () => {
 						</Dropdown.Item>
 					</Dropdown.Menu>
 				</Dropdown>
-			</Row>
+			</div>
 		</header>
 	);
 };
